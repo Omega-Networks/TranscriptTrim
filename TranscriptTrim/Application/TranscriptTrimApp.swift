@@ -43,6 +43,13 @@ struct TranscriptTrimApp: App {
                 }
                 .keyboardShortcut("s", modifiers: [.command, .shift])
             }
+            
+            // Add About menu item in the app menu
+            CommandGroup(replacing: .appInfo) {
+                Button("About TranscriptTrim") {
+                    NotificationCenter.default.post(name: .showAbout, object: nil)
+                }
+            }
         }
         #endif
     }
@@ -53,4 +60,5 @@ struct TranscriptTrimApp: App {
 extension Notification.Name {
     static let copyToClipboard = Notification.Name("copyToClipboard")
     static let saveToFile = Notification.Name("saveToFile")
+    static let showAbout = Notification.Name("showAbout")
 }

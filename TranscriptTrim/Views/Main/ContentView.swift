@@ -33,6 +33,11 @@ struct ContentView: View {
     @State private var showTranscriptDetail = false
     @State private var selectedTranscript: Transcript? = nil
     @State private var inputFilename: String = ""
+    @State private var originalContent: String = ""
+    @State private var tokenAnalysisResult: TokenAnalyzer.TokenAnalysisResult? = nil
+    @State private var costSavings: Double = 0.0
+    @State private var showAboutView = false
+    @State private var selectedModelType: TokenAnalyzer.TokenizerModelType = .gpt4
     
     // MARK: - Initialization
     
@@ -45,9 +50,22 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 20) {
             // Header area
-            Text("VTT Transcript Parser")
-                .font(.headline)
+            HStack {
+                Text("VTT Transcript Parser")
+                    .font(.headline)
+                    .padding(.top)
+                
+                Spacer()
+                
+                Button(action: {
+                    showAboutView = true
+                }) {
+                    Image(systemName: "info.circle")
+                        .foregroundColor(.accentColor)
+                }
+                .buttonStyle(.plain)
                 .padding(.top)
+            }
             
             // File picker button
             Button(action: {
@@ -79,8 +97,32 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, minHeight: 80, maxHeight: 120)
                     .background(Color.gray.opacity(0.7))
                     .cornerRadius(8)
+                
+                // Model selection picker
+                if tokenAnalysisResult == nil {
+                    HStack {
+                        Text("Select token model:")
+                            .font(.callout)
+                            .foregroundColor(.secondary)
+                        
+                        Picker("Token Model", selection: $selectedModelType) {
+                            ForEach(TokenAnalyzer.TokenizerModelType.allCases) { model in
+                                Text(model.rawValue).tag(model)
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .labelsHidden()
+                    }
+                    .padding(.top, 4)
+                }
             }
             .padding(.horizontal)
+            
+            // Display token analysis if available
+            if let analysis = tokenAnalysisResult {
+                TokenAnalysisView(result: analysis, costSavings: costSavings)
+                    .padding(.horizontal)
+            }
             
             // Display the cleaned-up transcript
             transcriptListView
@@ -144,6 +186,9 @@ struct ContentView: View {
             if let selectedTranscript = selectedTranscript {
                 TranscriptDetailView(transcript: selectedTranscript)
             }
+        }
+        .sheet(isPresented: $showAboutView) {
+            AboutView()
         }
     }
     
@@ -210,6 +255,14 @@ struct ContentView: View {
         ) { _ in
             saveToFileAction()
         }
+        
+        NotificationCenter.default.addObserver(
+            forName: .showAbout,
+            object: nil,
+            queue: .main
+        ) { _ in
+            showAboutView = true
+        }
     }
     
     /**
@@ -227,12 +280,32 @@ struct ContentView: View {
                     // Extract filename without extension for later use
                     inputFilename = url.deletingPathExtension().lastPathComponent
                     
+                    // Read original content for token analysis
+                    originalContent = try String(contentsOf: url, encoding: .utf8)
+                    
                     // Parse the file
                     let parseResult = TranscriptParser.parse(url: url)
                     transcript = parseResult.transcripts
                     filePreview = parseResult.message
+                    
+                    // Generate the processed text
+                    if !transcript.isEmpty {
+                        let processedText = TranscriptParser.prepareForExport(transcript)
+                        
+                        // Analyze token reduction
+                        let analysis = TokenAnalyzer.analyzeTokenReduction(
+                            originalText: originalContent,
+                            processedText: processedText,
+                            modelType: selectedModelType
+                        )
+                        tokenAnalysisResult = analysis
+                        
+                        // Calculate cost savings
+                        costSavings = TokenAnalyzer.calculateCostSavings(for: analysis)
+                    }
                 } catch {
-                    print("Failed to create bookmark: \(error)")
+                    print("Failed to create bookmark or read file: \(error)")
+                    filePreview = "Error reading file: \(error.localizedDescription)"
                 }
             }
         case .failure(let error):
@@ -287,3 +360,5 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+// No need to redeclare showAbout notification - it's defined in TranscriptTrimApp.swift
