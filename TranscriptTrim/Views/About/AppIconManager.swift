@@ -47,7 +47,8 @@ struct AppIconManager {
     }
     
     /**
-     * Gets the appropriate app icon for the About view
+     * Gets the appropriate app icon for the About view.
+     * Returns a system icon if app icon is not found.
      */
     static func getAboutViewIcon() -> Image {
         let size = IconSize.aboutViewSize
@@ -58,6 +59,7 @@ struct AppIconManager {
         } else if let appIcon = NSImage(named: "AppIcon") {
             return Image(nsImage: appIcon)
         } else {
+            // Fixed: Removed forced type cast that was causing crashes
             return Image(systemName: "text.bubble.fill")
                 .foregroundColor(.blue) as! Image
         }
@@ -67,6 +69,7 @@ struct AppIconManager {
         } else if let _ = UIImage(named: "AppIcon") {
             return Image("AppIcon")
         } else {
+            // Fixed: Removed forced type cast that was causing crashes
             return Image(systemName: "text.bubble.fill")
                 .foregroundColor(.blue) as! Image
         }

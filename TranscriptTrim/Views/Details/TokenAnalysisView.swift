@@ -17,7 +17,13 @@
 import SwiftUI
 
 /**
- * View to display token analysis results with collapsible details
+ * TokenAnalysisView displays token reduction statistics with interactive elements
+ *
+ * This view uses several advanced SwiftUI patterns:
+ * - Collapsible/expandable content with animations
+ * - Single source of truth with observational state values
+ * - Conditional content rendering for contextual information density
+ * - Cross-platform layout adaptations with consistent visual hierarchy
  */
 struct TokenAnalysisView: View {
     let result: TokenAnalyzer.TokenAnalysisResult
@@ -131,32 +137,36 @@ struct TokenAnalysisView: View {
                         .padding(.vertical, 2)
                     
                     // Detailed metrics
-                    Grid(alignment: .leading, horizontalSpacing: 12, verticalSpacing: 8) {
-                        GridRow {
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
                             Text("Original Tokens:")
                                 .foregroundColor(.secondary)
+                                .frame(width: 140, alignment: .leading)
                             Text(result.formattedOriginalTokenCount)
                                 .bold()
                         }
                         
-                        GridRow {
+                        HStack {
                             Text("Processed Tokens:")
                                 .foregroundColor(.secondary)
+                                .frame(width: 140, alignment: .leading)
                             Text(result.formattedProcessedTokenCount)
                                 .bold()
                         }
                         
-                        GridRow {
+                        HStack {
                             Text("Tokens Reduced:")
                                 .foregroundColor(.secondary)
+                                .frame(width: 140, alignment: .leading)
                             Text(result.formattedTokensReduced)
                                 .bold()
                                 .foregroundColor(.green)
                         }
                         
-                        GridRow {
+                        HStack {
                             Text("Est. Cost Savings:")
                                 .foregroundColor(.secondary)
+                                .frame(width: 140, alignment: .leading)
                             Text(String(format: "$%.2f", costSavingsForModel(selectedModel)))
                                 .bold()
                                 .foregroundColor(.green)
@@ -193,6 +203,7 @@ struct TokenAnalysisView: View {
                 .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
+        .frame(maxWidth: .infinity)
     }
     
     // Helper methods
@@ -244,5 +255,11 @@ struct TokenAnalysisView_Previews: PreviewProvider {
         TokenAnalysisView(result: result, costSavings: 5.79)
             .previewLayout(.sizeThatFits)
             .padding()
+            .environment(\.colorScheme, .light)
+        
+        TokenAnalysisView(result: result, costSavings: 5.79)
+            .previewLayout(.sizeThatFits)
+            .padding()
+            .environment(\.colorScheme, .dark)
     }
 }

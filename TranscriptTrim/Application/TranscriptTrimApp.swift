@@ -17,31 +17,77 @@
 import SwiftUI
 
 /**
- * The main entry point for the Transcript Trim application.
- * Sets up the app and initializes the root view.
+ * Main entry point for the TranscriptTrim application.
+ *
+ * Implements a platform-adaptive architecture using SwiftUI Scene-based structure.
+ * Note: While UIKit delegate patterns would allow more direct handling of lifecycle events,
+ * SwiftUI Scene approach enables cross-platform code sharing with platform-specific optimizations.
  */
 @main
 struct TranscriptTrimApp: App {
+    @State private var appError: Error?
+    @State private var showError = false
+    @Environment(\.openWindow) private var openWindow
+    
     var body: some Scene {
-        WindowGroup {
-            ContentView()
-                .frame(minWidth: 700, minHeight: 800)
+        WindowGroup(id: "main") {
+            Group {
+                #if os(iOS)
+                NavigationView {
+                    ContentView()
+                        .navigationTitle("TranscriptTrim")
+                        .navigationBarTitleDisplayMode(.inline)
+                }
+                .navigationViewStyle(StackNavigationViewStyle())
+                .accentColor(.blue)
+                #else
+                ContentView()
+                    .frame(minWidth: 420, minHeight: 420)
+                    .accentColor(.blue)
+                #endif
+            }
+            // Direct alert modifier instead of custom modifier
+            .alert("Error", isPresented: $showError) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(appError?.localizedDescription ?? "An unknown error occurred")
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .appError)) { notification in
+                if let error = notification.object as? Error {
+                    appError = error
+                    showError = true
+                }
+            }
         }
         #if os(macOS)
         .windowStyle(DefaultWindowStyle())
         .commands {
             CommandGroup(replacing: .newItem) {}  // Disable New Document menu item
             
+            // TODO: This don't function
             CommandMenu("Transcript") {
                 Button("Copy to Clipboard") {
                     NotificationCenter.default.post(name: .copyToClipboard, object: nil)
                 }
                 .keyboardShortcut("c", modifiers: [.command, .shift])
                 
-                Button("Save as TXT") {
+                Button("Save as TXT file") {
                     NotificationCenter.default.post(name: .saveToFile, object: nil)
                 }
                 .keyboardShortcut("s", modifiers: [.command, .shift])
+
+                // Add explicit New Window command
+                Button("New Window") {
+                    openWindow(id: "main")
+                }
+                .keyboardShortcut("n", modifiers: [.command, .shift])
+
+                Divider()
+                
+                Button("Select VTT File") {
+                    NotificationCenter.default.post(name: .selectFile, object: nil)
+                }
+                .keyboardShortcut("o", modifiers: [.command])
             }
             
             // Add About menu item in the app menu
@@ -54,11 +100,23 @@ struct TranscriptTrimApp: App {
         #endif
     }
     
+    // All UI configuration handled through SwiftUI modifiers directly
 }
 
-// Notification names for menu actions
+// No custom alert modifier needed - using SwiftUI's built-in alert
+
+// MARK: - Notification Extensions
+
+/**
+ * Application-wide notification names
+ *
+ * Using a centralized extension avoids string literal repetition and provides
+ * compiler validation for notification names across the codebase.
+ */
 extension Notification.Name {
     static let copyToClipboard = Notification.Name("copyToClipboard")
     static let saveToFile = Notification.Name("saveToFile")
     static let showAbout = Notification.Name("showAbout")
+    static let selectFile = Notification.Name("selectFile")
+    static let appError = Notification.Name("appError")
 }

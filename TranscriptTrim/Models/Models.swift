@@ -20,15 +20,36 @@ import UniformTypeIdentifiers
 /**
  * Represents a single transcript entry with a speaker and their dialogue.
  */
-struct Transcript: Identifiable {
+struct Transcript: Identifiable, Equatable, Hashable {
     var id = UUID()
     var speaker: String
     var dialogue: String
+    
+    // Equatable conformance
+    static func == (lhs: Transcript, rhs: Transcript) -> Bool {
+        return lhs.id == rhs.id &&
+               lhs.speaker == rhs.speaker &&
+               lhs.dialogue == rhs.dialogue
+    }
+    
+    // Hashable conformance
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(speaker)
+        hasher.combine(dialogue)
+    }
 }
 
 /**
- * Document type for exporting text files to the file system.
- * Conforms to FileDocument protocol for SwiftUI file export operations.
+ * FileDocument implementation for text file system integration
+ *
+ * Provides bidirectional conversion between application data and system file formats:
+ * - Read: Converts file data to in-memory string representation
+ * - Write: Serializes processed content back to file system
+ *
+ * This implementation uses Swift's newer FileDocument protocol rather than
+ * UIDocument subclassing, allowing integration with SwiftUI file handling
+ * while maintaining separation from UIKit dependencies.
  */
 struct TextDocument: FileDocument {
     static var readableContentTypes: [UTType] { [.plainText] }
@@ -55,6 +76,51 @@ struct TextDocument: FileDocument {
 }
 
 /**
+ * Domain-specific error handling with recovery suggestions
+ *
+ * Implements the LocalizedError protocol to integrate with system-level
+ * error presentation while adding application-specific context through:
+ * - Categorized error types for programmatic handling
+ * - User-friendly descriptions for display
+ * - Actionable recovery suggestions
+ *
+ * This approach balances technical precision with UX considerations by
+ * keeping error handling centralized rather than scattered throughout the app.
+ */
+enum AppError: Error, LocalizedError {
+    case filePermissionDenied(String)
+    case fileFormatInvalid(String)
+    case fileReadError(String)
+    case unknown(String)
+    
+    var errorDescription: String? {
+        switch self {
+        case .filePermissionDenied(let details):
+            return "Permission denied: \(details)"
+        case .fileFormatInvalid(let details):
+            return "Invalid file format: \(details)"
+        case .fileReadError(let details):
+            return "Error reading file: \(details)"
+        case .unknown(let details):
+            return "Unknown error: \(details)"
+        }
+    }
+    
+    var recoverySuggestion: String? {
+        switch self {
+        case .filePermissionDenied:
+            return "Try saving the file to your Documents folder first, or select a different file."
+        case .fileFormatInvalid:
+            return "Please ensure the file contains either VTT format with <v> tags or text with Speaker: Dialogue format."
+        case .fileReadError:
+            return "Try selecting the file again, or check if it's being used by another application."
+        case .unknown:
+            return "Please try again or restart the application."
+        }
+    }
+}
+
+/**
  * Utility function to create a custom UTType for VTT files
  */
 func createVTTType() -> UTType {
@@ -67,3 +133,5 @@ func createVTTType() -> UTType {
     return UTType(exportedAs: "com.webvtt.vtt",
                   conformingTo: .text)
 }
+
+// No UIKit color extensions needed - using pure SwiftUI
