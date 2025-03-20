@@ -1,0 +1,225 @@
+WEBVTT
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/01-0
+00:00:05.241 --> 00:00:09.681
+<v Leon Cassidy>Thanks for joining today's briefing on our Omega Zero Trust Platform implementation.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/02-0
+00:00:10.451 --> 00:00:15.421
+<v Leon Cassidy>We've made significant progress since our initial planning phase.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/03-0
+00:00:15.991 --> 00:00:18.771
+<v Leon Cassidy>I'm excited to share some updates with you all today.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/04-0
+00:00:19.881 --> 00:00:22.331
+<v John Krech>Before we dive into the technical details...</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/05-0
+00:00:22.781 --> 00:00:25.441
+<v John Krech>Before we dive into the technical details, I wanted to highlight why this project matters.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/06-0
+00:00:26.121 --> 00:00:28.881
+<v John Krech>We're not just implementing infrastructure here.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/07-0
+00:00:29.221 --> 00:00:33.741
+<v John Krech>We're building digital sovereignty for Wellington and our community.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/08-0
+00:00:34.571 --> 00:00:36.441
+<v Leon Cassidy>Exactly. That's exactly right.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/09-0
+00:00:37.221 --> 00:00:40.891
+<v Leon Cassidy>And the Smart Hub deployment has exceeded our expectations.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/10-0
+00:00:41.281 --> 00:00:44.091
+<v Leon Cassidy>The first three locations are now fully operational.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/11-0
+00:00:45.221 --> 00:00:49.321
+<v John Krech>The data sovereignty aspects are particularly impressive.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/12-0
+00:00:49.781 --> 00:00:52.091
+<v John Krech>All processing remains local.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/13-0
+00:00:52.781 --> 00:00:55.441
+<v John Krech>All processing remains completely local.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/14-0
+00:00:56.121 --> 00:00:59.881
+<v John Krech>We're seeing a 52% reduction in data transfer costs.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/15-0
+00:01:00.221 --> 00:01:04.321
+<v John Krech>That's compared to our previous cloud-based approach.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/16-0
+00:01:05.571 --> 00:01:09.881
+<v Leon Cassidy>And now for the exciting part – our Pulse orchestration layer.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/17-0
+00:01:10.221 --> 00:01:13.441
+<v Leon Cassidy>It's gone live with the AI integration.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/18-0
+00:01:14.211 --> 00:01:17.321
+<v Leon Cassidy>We can now process LLMs locally for real-time context.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/19-0
+00:01:17.781 --> 00:01:21.091
+<v Leon Cassidy>For real-time context, accountability, and growth.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/20-0
+00:01:21.571 --> 00:01:25.121
+<v Leon Cassidy>All without data leaving our network.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/21-0
+00:01:26.091 --> 00:01:29.881
+<v John Krech>This is transformative for our Seven Islands scenario.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/22-0
+00:01:30.221 --> 00:01:33.441
+<v John Krech>Let me demonstrate the resilience testing.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/23-0
+00:01:34.091 --> 00:01:38.221
+<v John Krech>When connectivity between regions is compromised...</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/24-0
+00:01:38.781 --> 00:01:42.091
+<v John Krech>Each Smart Hub maintains critical operations independently.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/25-0
+00:01:43.571 --> 00:01:47.431
+<v Leon Cassidy>The Council leadership is particularly impressed with this.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/26-0
+00:01:48.221 --> 00:01:51.091
+<v Leon Cassidy>Particularly with the circular economy aspects.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/27-0
+00:01:51.701 --> 00:01:55.511
+<v Leon Cassidy>By keeping technology investment local, we're creating something special.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/28-0
+00:01:56.221 --> 00:01:59.531
+<v Leon Cassidy>A virtuous cycle of community prosperity.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/29-0
+00:02:00.881 --> 00:02:03.891
+<v John Krech>Absolutely. Absolutely.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/30-0
+00:02:04.221 --> 00:02:08.781
+<v John Krech>And with the R&D grant approval looking promising...</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/31-0
+00:02:09.201 --> 00:02:12.431
+<v John Krech>We can accelerate phase two of the deployment.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/32-0
+00:02:13.561 --> 00:02:17.781
+<v Leon Cassidy>The water infrastructure monitoring integration is particularly meaningful.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/33-0
+00:02:18.221 --> 00:02:21.091
+<v Leon Cassidy>Especially given Wellington Water's challenges.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/34-0
+00:02:21.461 --> 00:02:22.661
+<v John Krech>Yes, exactly.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/35-0
+00:02:23.211 --> 00:02:26.341
+<v John Krech>Real-time leak detection alone could save millions annually.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/36-0
+00:02:26.781 --> 00:02:29.881
+<v John Krech>It's sustainability and fiscal responsibility combined.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/37-0
+00:02:30.571 --> 00:02:34.781
+<v Leon Cassidy>And our community engagement metrics are exceeding targets.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/38-0
+00:02:35.221 --> 00:02:39.331
+<v Leon Cassidy>The transparent operations dashboard has 94% approval.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/39-0
+00:02:40.121 --> 00:02:43.781
+<v John Krech>The University collaboration has been fantastic as well.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/40-0
+00:02:44.221 --> 00:02:47.091
+<v John Krech>The triadic relationship model is proving its value.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/41-0
+00:02:48.121 --> 00:02:51.881
+<v Leon Cassidy>Industry, academia, and community supporting each other.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/42-0
+00:02:52.211 --> 00:02:55.441
+<v Leon Cassidy>Supporting prosperous, resilient humanity.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/43-0
+00:02:55.891 --> 00:02:57.671
+<v Leon Cassidy>Exactly as we envisioned.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/44-0
+00:02:58.661 --> 00:03:02.331
+<v John Krech>Looking ahead, we're planning to scale to twelve additional locations.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/45-0
+00:03:02.781 --> 00:03:04.091
+<v John Krech>By Q4.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/46-0
+00:03:04.521 --> 00:03:07.231
+<v John Krech>The templated deployment is key.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/47-0
+00:03:08.211 --> 00:03:12.121
+<v Leon Cassidy>And with the AI capability now operational...</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/48-0
+00:03:12.781 --> 00:03:16.091
+<v Leon Cassidy>We can start implementing predictive maintenance across all systems.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/49-0
+00:03:17.241 --> 00:03:20.881
+<v John Krech>The governance framework has been updated with zero-trust principles.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/50-0
+00:03:21.441 --> 00:03:24.861
+<v John Krech>At all three layers – truly security by design.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/51-0
+00:03:26.121 --> 00:03:30.441
+<v Leon Cassidy>I believe we're creating something truly transformative here.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/52-0
+00:03:31.091 --> 00:03:33.671
+<v Leon Cassidy>This isn't just technology implementation.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/53-0
+00:03:34.561 --> 00:03:38.781
+<v John Krech>It's Wellington's talent rising, gluing our city's pieces into something stronger.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/54-0
+00:03:39.221 --> 00:03:42.091
+<v John Krech>Something stronger for generations to come.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/55-0
+00:03:43.561 --> 00:03:47.881
+<v Leon Cassidy>Kia mahi tahi tātou – together we build our resilient digital future.</v>
+
+6a12b458-cd3f-48e7-b7a9-c4f6a9de8b20/56-0
+00:03:48.221 --> 00:03:50.441
+<v Leon Cassidy>Let's open for questions.</v>

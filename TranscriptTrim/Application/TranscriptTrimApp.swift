@@ -22,15 +22,30 @@ import SwiftUI
  */
 @main
 struct TranscriptTrimApp: App {
+    // State to track if the About view should be shown
+    @State private var showAboutView = false
+    
     var body: some Scene {
-        WindowGroup {
+        // Primary window group with title
+        WindowGroup("TranscriptTrim", id: "main-window") {
             ContentView()
                 .frame(minWidth: 700, minHeight: 800)
+            // Listen for the About notification
+                .onReceive(NotificationCenter.default.publisher(for: .showAbout)) { _ in
+                    showAboutView = true
+                }
+            // Present the About view as a sheet when needed
+                .sheet(isPresented: $showAboutView) {
+                    AboutView()
+                }
         }
-        #if os(macOS)
-        .windowStyle(DefaultWindowStyle())
+        .defaultSize(width: 900, height: 800)
+#if os(macOS)
+        .windowToolbarStyle(UnifiedWindowToolbarStyle())
         .commands {
             CommandGroup(replacing: .newItem) {}  // Disable New Document menu item
+            
+            // Window menu is automatically created by SwiftUI with WindowGroup
             
             CommandMenu("Transcript") {
                 Button("Copy to Clipboard") {
@@ -42,18 +57,25 @@ struct TranscriptTrimApp: App {
                     NotificationCenter.default.post(name: .saveToFile, object: nil)
                 }
                 .keyboardShortcut("s", modifiers: [.command, .shift])
+                
+                Divider()
+                
+                // Add explicit New Window command
+                Button("New Window") {
+                    NSApp.sendAction(#selector(NSResponder.newWindowForTab(_:)), to: nil, from: nil)
+                }
+                .keyboardShortcut("n", modifiers: [.command, .shift])
             }
             
             // Add About menu item in the app menu
             CommandGroup(replacing: .appInfo) {
                 Button("About TranscriptTrim") {
-                    NotificationCenter.default.post(name: .showAbout, object: nil)
+                    showAboutView = true  // Directly set the state instead of using notification
                 }
             }
         }
-        #endif
+#endif
     }
-    
 }
 
 // Notification names for menu actions
