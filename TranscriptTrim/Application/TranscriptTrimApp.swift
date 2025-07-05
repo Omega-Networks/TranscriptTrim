@@ -61,6 +61,7 @@ struct TranscriptTrimApp: App {
         }
         #if os(macOS)
         .windowStyle(DefaultWindowStyle())
+        .windowToolbarStyle(UnifiedWindowToolbarStyle())
         .commands {
             CommandGroup(replacing: .newItem) {}  // Disable New Document menu item
             
