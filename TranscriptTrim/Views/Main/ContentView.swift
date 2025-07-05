@@ -48,6 +48,9 @@ struct ContentView: View {
     @State private var showErrorDetails = false
     @State private var lastError: String? = nil
     @State private var isDropTargeted: Bool = false
+    @State private var originalFileURL: URL? = nil
+    
+    @AppStorage("deleteVTTOnSave") private var deleteVTTOnSave: Bool = false
     
     // MARK: - Initialization
     
@@ -67,17 +70,31 @@ struct ContentView: View {
                         .padding(.top)
                     
                     Spacer()
-                    // TODO: About button crashes on IOS
-                    #if os(macOS)
-                    Button(action: {
-                        showAboutView = true
-                    }) {
-                        Image(systemName: "info.circle")
-                            .foregroundColor(.accentColor)
+                    
+                    // Delete VTT on save checkbox
+                    HStack(spacing: 6) {
+                        Text("Delete .vtt on save:")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .padding(.top)
+                        
+                        Toggle("", isOn: $deleteVTTOnSave)
+                            .toggleStyle(CheckboxToggleStyle())
+                            .labelsHidden()
+                            .padding(.top)
+                        
+                        // TODO: About button crashes on IOS
+                        #if os(macOS)
+                        Button(action: {
+                            showAboutView = true
+                        }) {
+                            Image(systemName: "info.circle")
+                                .foregroundColor(.accentColor)
+                        }
+                        .buttonStyle(.plain)
+                        .padding(.top)
+                        #endif
                     }
-                    .buttonStyle(.plain)
-                    .padding(.top)
-                    #endif
                 }
                 
                 // File picker button
@@ -416,6 +433,9 @@ struct ContentView: View {
                     // Extract filename without extension for later use
                     inputFilename = url.deletingPathExtension().lastPathComponent
                     
+                    // Save the original file URL for potential deletion
+                    originalFileURL = url
+                    
                     // Read original content for token analysis
                     originalContent = try String(contentsOf: url, encoding: .utf8)
                     
@@ -490,6 +510,32 @@ struct ContentView: View {
         case .success(let url):
             filePreview = "Saved to: \(url.lastPathComponent)"
             lastError = nil
+            
+            // Delete original VTT file if option is enabled
+            if deleteVTTOnSave, let originalURL = originalFileURL {
+                do {
+                    #if os(macOS)
+                    // On macOS, move to trash instead of permanent deletion
+                    try FileManager.default.trashItem(at: originalURL, resultingItemURL: nil)
+                    filePreview += " (Original .vtt moved to Trash)"
+                    #else
+                    // On iOS, delete the file
+                    try FileManager.default.removeItem(at: originalURL)
+                    filePreview += " (Original .vtt deleted)"
+                    #endif
+                    
+                    // Clear the original file URL after deletion
+                    originalFileURL = nil
+                    
+                    // Clear the transcript since source file is gone
+                    transcript = []
+                    tokenAnalysisResult = nil
+                } catch {
+                    // Don't fail the save operation, just report the deletion error
+                    lastError = "File saved successfully, but couldn't delete original: \(error.localizedDescription)"
+                }
+            }
+            
         case .failure(let error):
             filePreview = "Error saving file. See details below."
             lastError = "Save error: \(error.localizedDescription)"
@@ -522,6 +568,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 /**
  * Preview provider for ContentView

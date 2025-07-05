@@ -60,12 +60,10 @@ struct TranscriptTrimApp: App {
             }
         }
         #if os(macOS)
-        .windowStyle(DefaultWindowStyle())
         .windowToolbarStyle(UnifiedWindowToolbarStyle())
         .commands {
             CommandGroup(replacing: .newItem) {}  // Disable New Document menu item
             
-            // TODO: This don't function
             CommandMenu("Transcript") {
                 Button("Copy to Clipboard") {
                     NotificationCenter.default.post(name: .copyToClipboard, object: nil)
@@ -100,8 +98,6 @@ struct TranscriptTrimApp: App {
         }
         #endif
     }
-    
-    // All UI configuration handled through SwiftUI modifiers directly
 }
 
 // No custom alert modifier needed - using SwiftUI's built-in alert
